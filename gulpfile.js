@@ -52,7 +52,7 @@ gulp.task('test', ['browserify-src', 'browserify-tests'], function (done) {
 
   karma.start({
     configFile: __dirname + '/karma.conf.js',
-    singleRun: false
+    singleRun: true
   }, function() {
     done()
   })

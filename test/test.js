@@ -4,7 +4,7 @@ describe ('foo', function () {
 
   beforeEach(function () {
 
-    module('foo')
+    angular.mock.module('foo')
 
     inject(function (_$filter_) {
       $filter = _$filter_

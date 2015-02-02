@@ -109,7 +109,9 @@ angular
   })
 ```
 
-Now we're getting somewhere. We're using both Browserify and CommonJS properly, and have written clean, DRY code. But there is an issue with this approach. A major benefit of Angular's DI is that it makes mocking out dependencies during tests easy. But with this approach, how do we mock bar.js when we're testing foo.js?
+Now we're getting somewhere. We're using both Browserify and CommonJS properly, and have written clean, DRY code. We can also unit test foo.js, bar.js, and baz.js directly.
+
+But there is an issue with this approach. A major benefit of Angular's DI is that it makes mocking out dependencies during tests easy. But with this approach, how do we mock bar.js when we're testing foo.js?
 
 ...
 
