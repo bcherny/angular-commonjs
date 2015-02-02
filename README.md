@@ -14,6 +14,21 @@ Angular has its own DI system, which has some serious drawbacks:
 By default, Angular DI looks like this:
 
 ```js
+// contents of bar.js:
+angular
+  .module('foo')
+  .service('bar', function(){
+    doSomething: function(){}
+  })
+
+// contents of baz.js:
+angular
+  .module('foo')
+  .service('baz', function(){
+    doSomethingElse: function(){}
+  })
+
+// contents of foo.js:
 angular
   .module('foo', [])
   .service('foo', ['bar', 'baz', function (bar, baz) {
@@ -25,6 +40,9 @@ angular
 If we use [ng-annotate](https://github.com/olov/ng-annotate), we can remove our dependency annotations and DRY up our code a bit:
 
 ```js
+// (contents of bar.js and baz.js haven't changed)
+
+// contents of foo.js:
 angular
   .module('foo', [])
   .service('foo', function (bar, baz) {
