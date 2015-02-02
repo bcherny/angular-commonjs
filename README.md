@@ -44,6 +44,17 @@ So a naive Browserify + Angular implementation simply replaces the concatenation
 Our code might now look like this:
 
 ```js
+// contents of bar.js:
+module.exports = function(){
+  return { doSomething: function(){} }
+}
+
+// contents of baz.js:
+module.exports = function(){
+  return { doSomethingElse: function(){} }
+}
+
+// contents of foo.js:
 require('./bar')
 require('./baz')
 
@@ -54,6 +65,35 @@ angular
     baz.doSomethingElse()
   })
 ```
+
+I don't like this approach because of the lack of a clear link between "bar" from `require('./bar')` and "bar" from `function (bar, baz)`. We're also not leveraging CommonJS, but rather Browserify. What if we avoid angular DI entirely?
+
+```js
+// contents of bar.js:
+module.exports = {
+  doSomething: function(){}
+}
+
+// contents of baz.js:
+module.exports = {
+  doSomethingElse: function(){}
+}
+
+// contents of foo.js:
+var bar = require('./bar'),
+    baz = require('./baz')
+
+angular
+  .module('foo', [])
+  .service('foo', function () {
+    bar.doSomething()
+    baz.doSomethingElse()
+  })
+```
+
+Now we're getting somewhere. We're using both Browserify and CommonJS properly, and have written clean, DRY code. But there is an issue with this approach. A major benefit of Angular's DI is that it makes mocking out dependencies during tests easy. But with this approach, how do we mock bar.js when we're testing foo.js?
+
+...
 
 ## TODO
 

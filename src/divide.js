@@ -1,9 +1,7 @@
-const _ = require('lodash')
+// (numbers: Array<Number>) => Number
+module.exports = function divide (numbers) {
 
-// (Number...) => Number
-module.exports = function () {
-
-  return _(arguments).reduce(function (prev, cur) {
+  return numbers.reduce(function (prev, cur) {
     return prev / cur
   })
 
