@@ -1,0 +1,23 @@
+{
+  "name": "angular-commonjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Boris Cherny <boris@performancejs.com> (http://performancejs.com/)",
+  "license": "CC0",
+  "devDependencies": {
+    "browserify": "^8.1.3",
+    "gulp": "^3.8.10",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-util": "^3.0.2",
+    "node-notifier": "^4.1.0",
+    "watchify": "^2.3.0"
+  },
+  "dependencies": {
+    "angular": "^1.3.11",
+    "lodash": "^3.0.1"
+  }
+}
