@@ -113,6 +113,55 @@ Now we're getting somewhere. We're using both Browserify and CommonJS properly, 
 
 But there is an issue with this approach. A major benefit of Angular's DI is that it makes mocking out dependencies during tests easy. But with this approach, how do we mock bar.js when we're testing foo.js?
 
+**What if we make a `require` service?**
+
+That might look something like this:
+
+```js
+angular
+.module( ... )
+.factory('require', function () {
+  return function () {
+    return require.apply(require, arguments)
+  }
+})
+```
+
+And our code now looks like:
+
+```js
+// contents of bar.js:
+module.exports = {
+  doSomething: function(){}
+}
+
+// contents of baz.js:
+module.exports = {
+  doSomethingElse: function(){}
+}
+
+// contents of foo.js:
+angular
+  .module('foo', [])
+  .service('foo', function (require) {
+    require('bar').doSomething()
+    require('baz').doSomethingElse()
+  })
+```
+
+This has upsides and downsides too:
+
+Cons:
+
+- Injecting the `require` service is more verbose than using the global `require`
+- We can no longer declare all our dependencies at the top of each script (though we can within a consuming function)
+
+Pros:
+
+- This approach enforces localizes CommonJS DI (to be more like Angular's), which helps isolate state
+- Makes code easy to test, and dependencies easy to mock
+- Many functions are more pure (since `require` needs to be passed in as an argument, rather than being a global)
+
 ...
 
 ## TODO

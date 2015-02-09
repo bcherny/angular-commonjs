@@ -1,28 +1,30 @@
-var angular = window.angular,
-    add = require('./add'),
-    subtract = require('./subtract'),
-    multiply = require('./multiply'),
-    divide = require('./divide')
+var angular = window.angular
 
 angular
 .module('foo', [])
 .controller('foo', function () {})
 
+.factory('require', function () {
+  return function () {
+    return require.apply(require, arguments)
+  }
+})
+
 /*
   filters
  */
 
-.filter('add', function () {
-  return add
+.filter('add', function (require) {
+  return require('./add')
 })
-.filter('subtract', function () {
-  return subtract
+.filter('subtract', function (require) {
+  return require('./subtract')
 })
-.filter('multiply', function () {
-  return multiply
+.filter('multiply', function (require) {
+  return require('./multiply')
 })
-.filter('divide', function () {
-  return divide
+.filter('divide', function (require) {
+  return require('./divide')
 })
 
 /*
